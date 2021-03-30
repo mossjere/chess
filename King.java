@@ -122,7 +122,18 @@ public class King extends Piece
       {
         return false;
       }
-      this.x-=2;
+      int tempX = this.x;
+      int pieceIndex = b.whichPiece(this.x,this.y);
+      this.x--;
+      for(;this.x > tempX-2; this.x--)
+      {
+        if(this.checkCheck(b,pieceIndex))
+        {
+          this.x = tempX;
+          return false;
+        }
+      }
+      //this.x-=2;
       r.x+=3;
       r.hasMoved = true;
       this.hasMoved = true;
@@ -141,7 +152,17 @@ public class King extends Piece
       {
         return false;
       }
-      this.x+=2;
+      int tempX = this.x;
+      int pieceIndex = b.whichPiece(this.x,this.y);
+      this.x++;
+      for(;this.x < tempX+2; this.x++)
+      {
+        if(this.checkCheck(b,pieceIndex))
+        {
+          this.x = tempX;
+          return false;
+        }
+      }
       r.x-=2;
       r.hasMoved = true;
       this.hasMoved = true;
