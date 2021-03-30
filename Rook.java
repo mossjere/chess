@@ -14,7 +14,7 @@ public class Rook extends Piece
       this.symbol = Character.toLowerCase(this.type.charAt(0));
     }
   }
-  public boolean moveStraight(int x, int y, Board b)
+  protected boolean moveStraight(int x, int y, Board b)
   {
     if(!this.checkBounds(x,y,b) || !this.clearPath(x,y,b))
     {
@@ -25,12 +25,15 @@ public class Rook extends Piece
     {
       this.x = x;
       this.y = y;
+      if(this.hasMoved)
+        this.hasMovedAgain = true;
+      this.hasMoved = true;
       return true;
     }
     return false;
   }
 
-  public boolean canKillStraight(int x, int y, Board b)
+  protected boolean canKillStraight(int x, int y, Board b)
   {
     if(!this.checkBounds(x,y,b) || !this.clearPath(x,y,b))
     {

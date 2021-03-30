@@ -14,7 +14,7 @@ public class Bishop extends Piece
       this.symbol = Character.toLowerCase(this.type.charAt(0));
     }
   }
-  public boolean moveDiag(int x, int y, Board b)
+  protected boolean moveDiag(int x, int y, Board b)
   {
     if(!this.checkBounds(x,y,b) || !this.clearPath(x,y,b))
     {
@@ -24,12 +24,15 @@ public class Bishop extends Piece
     {
       this.x = x;
       this.y = y;
+      if(this.hasMoved)
+        this.hasMovedAgain = true;
+      this.hasMoved = true;
       return true;
     }
     return false;
   }
 
-  public boolean canKillDiag(int x, int y, Board b)
+  protected boolean canKillDiag(int x, int y, Board b)
   {
     if(!this.checkBounds(x,y,b) || !this.clearPath(x,y,b))
     {

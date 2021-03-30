@@ -14,7 +14,7 @@ public class Pawn extends Piece
       this.symbol = Character.toLowerCase(this.type.charAt(0));
     }
   }
-  public boolean moveDiag(int x, int y, Board b)
+  protected boolean moveDiag(int x, int y, Board b)
   {
     if(((this.color.equals("White") && this.y == 4) || (this.color.equals("Black") && this.y == 3)) && b.isPiece(x,this.y))
     {
@@ -25,13 +25,16 @@ public class Pawn extends Piece
         this.workAround = false;
         this.x = x;
         this.y = y;
+        if(this.hasMoved)
+          this.hasMovedAgain = true;
+        this.hasMoved = true;
         return true;
       }
       this.workAround = false;
     }
     return false;//implement for attacking and that onpassont crap
   }
-  public boolean moveStraight(int x, int y, Board b)
+  protected boolean moveStraight(int x, int y, Board b)
   {
     if(this.y == y)
       return false;
@@ -46,6 +49,9 @@ public class Pawn extends Piece
     {
       this.y = y;
       this.hasMoved = true;
+      if(this.hasMoved)
+        this.hasMovedAgain = true;
+      this.hasMoved = true;
       return true;
     }
     if(this.hasMoved && ((this.y + 1 == y && this.color.equals("White"))
@@ -59,7 +65,7 @@ public class Pawn extends Piece
     return false;
   }
 
-  public boolean canKillPawn(int x, int y, Board b)
+  protected boolean canKillPawn(int x, int y, Board b)
   {
     if(((this.y+1 == y && (this.x+1 == x || this.x-1 == x) && this.color.equals("White"))
     || (this.y-1 == y && (this.x+1 == x || this.x-1 ==x) && this.color.equals("Black"))))
@@ -82,7 +88,7 @@ public class Pawn extends Piece
     return false;
   }
 
-  public void upgrade(Board b, int pawn, int piece)
+  protected void upgrade(Board b, int pawn, int piece)
   {
     int newX = b.list.get(pawn).getX();
     int newY = b.list.get(pawn).getY();

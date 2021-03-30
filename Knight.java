@@ -14,7 +14,7 @@ public class Knight extends Piece
       this.symbol = Character.toLowerCase(this.type.charAt(1));
     }
   }
-  public boolean moveKnight(int x, int y, Board b)
+  protected boolean moveKnight(int x, int y, Board b)
   {
     if(!this.checkBounds(x,y,b))
     {
@@ -27,17 +27,20 @@ public class Knight extends Piece
     {
       this.x = x;
       this.y = y;
+      if(this.hasMoved)
+        this.hasMovedAgain = true;
+      this.hasMoved = true;
       return true;
     }
     return false;
   }
 
-  public boolean clearPath(int x, int y, Board b)
+  protected boolean clearPath(int x, int y, Board b)
   {
     return true; //lol
   }
 
-  public boolean canKillKnight(int x, int y, Board b)
+  protected boolean canKillKnight(int x, int y, Board b)
   {
     if(!this.checkBounds(x,y,b))
     {

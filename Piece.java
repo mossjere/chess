@@ -10,22 +10,22 @@ public abstract class Piece
     this.isAlive = true;
     this.workAround = false;
   }
-  public boolean moveDiag(int x, int y, Board b){return false;}//implement for king, queen, pawn(for attack), bishop
-  public boolean moveStraight(int x, int y, Board b){return false;}//implement for King, queen, rook, pawn
-  public boolean moveKnight(int x, int y, Board b){return false;}
-  public boolean canKillStraight(int x, int y, Board b){return false;}//identical to moveStraight except changing x and y
-  public boolean canKillDiag(int x, int y, Board b){return false;}//
-  public boolean canKillKnight(int x, int y, Board b){return false;}
-  public boolean canKillPawn(int x, int y, Board b){return false;}
-  public boolean killDirection(int deltaX, int deltaY){return false;}//called by canKill is the difference of xs and ys within this pieces legal kill moves
-  public boolean checkCheck(Board b, int king){return false;}
-  public void setXandY(int x, int y){this.x = x; this.y = y;}
-  public boolean castle(Piece p, Board b){return false;}
-  public boolean checkMate(Board b, int king){return false;}
-  public void upgrade(Board b, int pawn, int piece){}
+  protected boolean moveDiag(int x, int y, Board b){return false;}//implement for king, queen, pawn(for attack), bishop
+  protected boolean moveStraight(int x, int y, Board b){return false;}//implement for King, queen, rook, pawn
+  protected boolean moveKnight(int x, int y, Board b){return false;}
+  protected boolean canKillStraight(int x, int y, Board b){return false;}//identical to moveStraight except changing x and y
+  protected boolean canKillDiag(int x, int y, Board b){return false;}//
+  protected boolean canKillKnight(int x, int y, Board b){return false;}
+  protected boolean canKillPawn(int x, int y, Board b){return false;}
+  protected boolean killDirection(int deltaX, int deltaY){return false;}//called by canKill is the difference of xs and ys within this pieces legal kill moves
+  protected boolean checkCheck(Board b, int king){return false;}
+  protected void setXandY(int x, int y){this.x = x; this.y = y;}
+  protected boolean castle(Piece p, Board b){return false;}
+  protected boolean checkMate(Board b, int king){return false;}
+  protected void upgrade(Board b, int pawn, int piece){}
 
 
-  public boolean checkBounds(int x, int y, Board b)
+  protected boolean checkBounds(int x, int y, Board b)
   {
     if(x < 0 || x > 7 || y < 0 || y > 7)
     {
@@ -33,7 +33,7 @@ public abstract class Piece
     }
     return true;
   }
-  public boolean clearPath(int x, int y, Board b)
+  protected boolean clearPath(int x, int y, Board b)
   {
     int minX, maxX, minY, maxY;
     boolean straightX = false;
@@ -79,7 +79,7 @@ public abstract class Piece
     return true;
   }
 
-  public boolean move(int x, int y, Board b)
+  protected boolean move(int x, int y, Board b)
   {
     if(this.type.equals("Knight"))
     {
@@ -97,7 +97,7 @@ public abstract class Piece
   }
 
 
-  public boolean kill(Piece p,Board b)
+  protected boolean kill(Piece p,Board b)
   {
     if(!this.color.equals(p.color) && this.canKill(p.getX(),p.getY(),b))
     {
@@ -118,7 +118,7 @@ public abstract class Piece
     return false;
   }
 
-  public boolean canKill(int x, int y, Board b)
+  protected boolean canKill(int x, int y, Board b)
   {
     if(this.type.equals("Knight"))
     {
@@ -143,18 +143,18 @@ public abstract class Piece
 
 
   //do not need to implement in child classes
-  public int getX(){return this.x;}
-  public int getY(){return this.y;}
+  protected int getX(){return this.x;}
+  protected int getY(){return this.y;}
   public String toString(){return this.color + " " + this.type;}
-  public boolean isAlive;
-  public int x;
-  public int y;
-  public int moveDistance;
-  public String type;
-  public String color;
-  public char symbol;
-  public boolean hasMoved;
-  public boolean hasMovedAgain;
-  public boolean workAround;
-  //public abstract boolean checkBounds(int x, int y){return false;}
+  protected boolean isAlive;
+  protected int x;
+  protected int y;
+  protected int moveDistance;
+  protected String type;
+  protected String color;
+  protected char symbol;
+  protected boolean hasMoved;
+  protected boolean hasMovedAgain;
+  protected boolean workAround;
+  //protected abstract boolean checkBounds(int x, int y){return false;}
 }

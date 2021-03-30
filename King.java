@@ -14,7 +14,7 @@ public class King extends Piece
       this.symbol = Character.toLowerCase(this.type.charAt(0));
     }
   }
-  public boolean checkCheck(Board b, int king)
+  protected boolean checkCheck(Board b, int king)
   {
     for(int i = 0; i < b.list.size(); i++)
     {
@@ -30,7 +30,7 @@ public class King extends Piece
     }
     return false;
   }
-  public boolean checkMate(Board b, int king)
+  protected boolean checkMate(Board b, int king)
   {
     for(int piece = 0; piece < b.list.size(); piece++)
     {
@@ -80,7 +80,7 @@ public class King extends Piece
     return true;
   }
 
-  // public boolean move(int x, int y, Board b)
+  // protected boolean move(int x, int y, Board b)
   // {
   //   if(x == this.x && y == this.y)
   //   {
@@ -98,7 +98,7 @@ public class King extends Piece
   //       this.hasMoved = true;
   //     }
   // }
-  // public boolean checkBounds(int x, int y, Board b)
+  // protected boolean checkBounds(int x, int y, Board b)
   // {
   //   if((x+this.moveDistance == this.x || x == this.x || x-this.moveDistance == this.x)&&
   //   (y+this.moveDistance == this.y || y == this.y || y-this.moveDistance == this.y))
@@ -107,7 +107,7 @@ public class King extends Piece
   //   }
   //   return false;
   // }
-  public boolean castle(Piece r, Board b)
+  protected boolean castle(Piece r, Board b)
   {
     if(r.x == 0 && this.y == r.y)
     {
@@ -149,7 +149,7 @@ public class King extends Piece
     }
     return false;
   }
-  public boolean moveDiag(int x, int y, Board b)
+  protected boolean moveDiag(int x, int y, Board b)
   {
     if(!this.checkBounds(x,y,b) || !this.clearPath(x,y,b))
     {
@@ -159,11 +159,14 @@ public class King extends Piece
     {
       this.x = x;
       this.y = y;
+      if(this.hasMoved)
+        this.hasMovedAgain = true;
+      this.hasMoved = true;
       return true;
     }
     return false;
   }
-  public boolean moveStraight(int x, int y, Board b)
+  protected boolean moveStraight(int x, int y, Board b)
   {
     if(!this.checkBounds(x,y,b) || !this.clearPath(x,y,b))
     {
@@ -173,12 +176,15 @@ public class King extends Piece
     {
       this.x = x;
       this.y = y;
+      if(this.hasMoved)
+        this.hasMovedAgain = true;
+      this.hasMoved = true;
       return true;
     }
     return false;
   }
 
-  public boolean canKillStraight(int x, int y, Board b)
+  protected boolean canKillStraight(int x, int y, Board b)
   {
     if(!this.checkBounds(x,y,b) || !this.clearPath(x,y,b))
     {
@@ -191,7 +197,7 @@ public class King extends Piece
     return false;
   }
 
-  public boolean canKillDiag(int x, int y, Board b)
+  protected boolean canKillDiag(int x, int y, Board b)
   {
     if(!this.checkBounds(x,y,b) || !this.clearPath(x,y,b))
     {
