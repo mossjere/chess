@@ -1,3 +1,3 @@
 # chess
 A simple 2 player chess game
-Just compile the java files and run the main in Chess.java
+Run the compile.sh file.  It may need to be made executable first.
