@@ -299,6 +299,7 @@ public class Chess extends JPanel implements MouseListener
               display = "You cannot move the " + b.list.get(pieceIndex) + " there";
             else
             {
+              b.lastMoved = b.list.get(pieceIndex);
               if(b.list.get(pieceIndex).type.equals("Pawn") && ((whitesMove && b.list.get(pieceIndex).getY() == 7) || !whitesMove && b.list.get(pieceIndex).getY() == 0))
               {
                 display = "Select your piece";

@@ -7,6 +7,7 @@ public class Board
   boolean grid[][] = new boolean[8][8];
   ArrayList<Piece> list = new ArrayList<Piece>();
   Piece lastKilled;
+  Piece lastMoved;
   Board()
   {
     lastKilled = null;
@@ -113,57 +114,6 @@ public class Board
   public static void main(String[] args)
   {
     Board b = new Board();
-
-    // System.out.println("________________");
-    // for(int i = 0; i < 8; i++)
-    // {
-    //   System.out.print("|");
-    //   for(int j = 0; j < 8; j++)
-    //   {
-    //     if(b.grid[j][i])
-    //     {
-    //       System.out.print("1");
-    //     }
-    //     else
-    //     {
-    //       System.out.print("0");
-    //     }
-    //     System.out.print("|");
-    //   }
-    //   System.out.println("\n----------------");
-    // }
-    // for(int i = 0; i < 8; i++)
-    // {
-    //   for(int j = 0; j < 8; j++)
-    //   {
-    //     boolean taken = false;
-    //     for(int k = 0; k < b.list.size(); k++)
-    //     {
-    //       if(b.list.get(k).getX() == j && b.list.get(k).getY() == i)
-    //       {
-    //         System.out.print(b.list.get(k).type + " ");
-    //         taken = true;
-    //       }
-    //     }
-    //     if(!taken)
-    //     {
-    //       System.out.print("Empty ");
-    //     }
-    //   }
-    //   System.out.print("\n");
-    // }
-    // System.out.println(b.list.get(0));
-    //b.list.get(0).move(4,1,b);
-    //b.list.get(0).move(4,2,b);
-    //b.list.get(0).move(4,3,b);
-    // b.list.get(11).moveStraight(3,3,b);
-    // b.list.get(11).moveStraight(3,4,b);
-    // b.list.get(4).moveKnight(2,2,b);
-    // b.list.get(2).moveDiag(4,2,b);
-    // b.list.get(2).clearPath(4,2,b);
-    // b.list.get(2).moveDiag(2,4,b);
-    // b.list.get(2).moveDiag(0,0,b);
-    // b.list.get(0).moveDiag(3,1,b);
     Scanner scnr = new Scanner(System.in);
     int x, y, newX, newY;;
     newX = 0;

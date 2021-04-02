@@ -72,7 +72,7 @@ public class Pawn extends Piece
     else if(b.list.get(b.whichPiece(x,y)).hasMoved && !b.list.get(b.whichPiece(x,y)).hasMovedAgain)
     {
       if(this.y == y && (this.x-1 == x || this.x+1 == x) && (y == 3 || y == 4)
-        && b.list.get(b.whichPiece(x,y)).type.equals("Pawn") && this.workAround)
+        && b.list.get(b.whichPiece(x,y)).type.equals("Pawn") && this.workAround && b.lastMoved == b.list.get(b.whichPiece(x,y)))
       {
         // if(y == 3)
         //   this.y = 2;
