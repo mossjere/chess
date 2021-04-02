@@ -46,6 +46,24 @@ public class King extends Piece
           int newY = b.list.get(piece).getY();
           if(b.isPiece(i,j))
           {
+            if(b.list.get(piece).type.equals("King") && b.list.get(b.whichPiece(i,j)).type.equals("Rook")
+            && b.list.get(piece).color.equals(b.list.get(b.whichPiece(i,j))) && this.color.equals(b.list.get(piece).color))
+            {
+              int tempX = this.x;
+              int tempY = this.y;
+              int tempPieceIndex = b.whichPiece(i,j);
+              int rookX = b.list.get(tempPieceIndex).getX();
+              int rookY = b.list.get(tempPieceIndex).getY();
+              if(this.castle(b.list.get(tempPieceIndex),b))
+              {
+                this.x = tempX;
+                this.y = tempY;
+                b.list.get(i).setXandY(rookX,rookY);
+                this.hasMoved = false;
+                b.list.get(i).hasMoved = false;
+                return false;
+              }
+            }
             if(b.list.get(piece).kill(b.list.get(b.whichPiece(i,j)),b))
             {
               if(!this.checkCheck(b,king))
@@ -109,8 +127,10 @@ public class King extends Piece
   // }
   protected boolean castle(Piece r, Board b)
   {
+    //check if left rook
     if(r.x == 0 && this.y == r.y)
     {
+      //check for pieces in the way
       for(int i = 1; i < this.x; i++)
       {
         if(b.isPiece(i,this.y))
@@ -124,7 +144,7 @@ public class King extends Piece
       }
       int tempX = this.x;
       int pieceIndex = b.whichPiece(this.x,this.y);
-      this.x--;
+      --this.x;
       for(;this.x > tempX-2; this.x--)
       {
         if(this.checkCheck(b,pieceIndex))

@@ -49,9 +49,6 @@ public class Pawn extends Piece
     {
       this.y = y;
       this.hasMoved = true;
-      if(this.hasMoved)
-        this.hasMovedAgain = true;
-      this.hasMoved = true;
       return true;
     }
     if(this.hasMoved && ((this.y + 1 == y && this.color.equals("White"))

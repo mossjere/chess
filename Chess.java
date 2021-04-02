@@ -135,8 +135,10 @@ public class Chess extends JPanel implements MouseListener
   public void mouseReleased(MouseEvent e){}
   public void mousePressed(MouseEvent e)
   {
-    if(gameOver)
+    if(gameOver)//don't update board if game is over
       return;
+    /*if a pawn has reached the other side of the board
+    choose what piece to make them into*/
     if(choosePiece)
     {
       int selectedX = e.getX();
@@ -151,6 +153,7 @@ public class Chess extends JPanel implements MouseListener
       }
       return;
     }
+    //If it is a click where no piece is already selected select piece at x, y
     if(!pieceSelected)
     {
       currX = e.getX();
@@ -162,6 +165,7 @@ public class Chess extends JPanel implements MouseListener
       (b.list.get(b.whichPiece(currX,currY)).color.equals("Black") && !whitesMove)))
         pieceSelected = true;
     }
+    //if a piece is already selected
     else
     {
       int newX = (e.getX()-50)/50;
@@ -175,7 +179,7 @@ public class Chess extends JPanel implements MouseListener
         boolean turnComplete = false;
         if(pieceIndex < 0)
           return;
-
+        //Make sure it is the turn of the piece selected
         if((b.list.get(pieceIndex).color.equals("White") && whitesMove)||
            (b.list.get(pieceIndex).color.equals("Black") && !whitesMove))
         {
@@ -187,8 +191,8 @@ public class Chess extends JPanel implements MouseListener
               String winner = whitesMove ? "Black" : "White";
               display = "Check Mate! " + winner + " wins the game!";
               gameOver = true;
-              repaint();
               pieceSelected = false;
+              repaint();
               return;
             }
           }
@@ -304,6 +308,8 @@ public class Chess extends JPanel implements MouseListener
                 repaint();
               }
               display = b.list.get(pieceIndex).type + " " + col[currX] + (currY+1) + " to " + col[newX] + (newY+1);
+              if(choosePiece)
+                display = "Select your piece";
               whitesMove = !whitesMove;
               if(b.list.get(king).checkCheck(b,king))
               {
@@ -347,7 +353,9 @@ public class Chess extends JPanel implements MouseListener
         }
         display = "Check";
       }
-      System.out.println(display);
+      if(choosePiece)
+        display = "Select your piece";
+      // System.out.println(display);
       //pieceSelected = !pieceSelected;
       pieceSelected = false;
     }
