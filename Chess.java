@@ -139,6 +139,28 @@ public class Chess extends JPanel implements MouseListener
       return;
     /*if a pawn has reached the other side of the board
     choose what piece to make them into*/
+    int piecesAlive = 0;
+    for(int i = 0; i < b.list.size(); i++)
+    {
+      if(b.list.get(i).isAlive)
+        piecesAlive++;
+    }
+    int king = whitesMove ? 0 : 16;
+    if(!b.list.get(king).checkCheck(b,king) && b.list.get(king).checkMate(b,king))
+    {
+      display = "Stalemate!";
+      pieceSelected = false;
+      gameOver = true;
+      repaint();
+      return;
+    }
+    if(piecesAlive == 2)
+    {
+      display = "Stalemate";
+      repaint();
+      gameOver = true;
+      return;
+    }
     if(choosePiece)
     {
       int selectedX = e.getX();
@@ -170,7 +192,6 @@ public class Chess extends JPanel implements MouseListener
     {
       int newX = (e.getX()-50)/50;
       int newY = 7-((e.getY()-50)/50);
-      int king = whitesMove ? 0 : 16;
       if(currX >= 0 && currX < 8 && currY >= 0 && currY < 8)
       {
         int pieceIndex = b.whichPiece(currX,currY);
