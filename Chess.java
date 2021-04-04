@@ -156,7 +156,7 @@ public class Chess extends JPanel implements MouseListener
     }
     if(piecesAlive == 2)
     {
-      display = "Stalemate";
+      display = "Stalemate!";
       repaint();
       gameOver = true;
       return;
@@ -214,6 +214,7 @@ public class Chess extends JPanel implements MouseListener
               gameOver = true;
               pieceSelected = false;
               repaint();
+              System.out.println(b.fen());
               return;
             }
           }
@@ -248,6 +249,7 @@ public class Chess extends JPanel implements MouseListener
                     display = "You cannot move into check.";
                   }
                 }
+                System.out.println(b.fen());
                 repaint();
                 return;
               }
@@ -282,6 +284,7 @@ public class Chess extends JPanel implements MouseListener
             }
             else
             {
+              //if pawn makes it to the opposite side of the board
               if(b.list.get(pieceIndex).type.equals("Pawn") && ((whitesMove && b.list.get(pieceIndex).getY() == 7) || !whitesMove && b.list.get(pieceIndex).getY() == 0))
               {
                 display = "Select your piece";
@@ -311,6 +314,8 @@ public class Chess extends JPanel implements MouseListener
                   b.lastKilled = null;
                 }
               }
+              else
+                System.out.println(b.fen());
             }
           }
           else
@@ -348,6 +353,8 @@ public class Chess extends JPanel implements MouseListener
                   display = "You cannot move into check.";
                 }
               }
+              else
+                System.out.println(b.fen());
             }
           }
         }

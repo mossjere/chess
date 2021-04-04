@@ -25,9 +25,14 @@ public class Pawn extends Piece
         this.workAround = false;
         this.x = x;
         this.y = y;
-        if(this.hasMoved)
+        if(!this.hasMovedAgain && this.hasMoved)
+        {
           this.hasMovedAgain = true;
-        this.hasMoved = true;
+        }
+        if(!this.hasMoved)
+        {
+          this.hasMoved = true;
+        }
         return true;
       }
       this.workAround = false;

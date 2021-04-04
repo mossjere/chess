@@ -111,6 +111,36 @@ public class Board
     }
     return -1;
   }
+
+
+  public String fen()
+  {
+    String fen = "";
+    for(int i = 0; i < 8; i++)
+    {
+      int number = 0;
+      for(int j = 0; j < 8; j++)
+      {
+        if(isPiece(j,i))
+        {
+          if(number > 0)
+            fen+=number;
+          fen+=list.get(whichPiece(j,i)).symbol;
+          number = 0;
+        }
+        else
+        {
+          number++;
+        }
+      }
+      if(i < 7)
+        fen+="/";
+    }
+    return fen;
+  }
+
+
+
   public static void main(String[] args)
   {
     Board b = new Board();

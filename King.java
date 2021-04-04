@@ -34,6 +34,8 @@ public class King extends Piece
   {
     for(int piece = 0; piece < b.list.size(); piece++)
     {
+      boolean tempHasMoved = b.list.get(piece).hasMoved;
+      boolean tempHasMovedAgain = b.list.get(piece).hasMovedAgain;
       if(!b.list.get(piece).color.equals(b.list.get(king).color) || !b.list.get(piece).isAlive)
       {
         continue;
@@ -46,30 +48,32 @@ public class King extends Piece
           int newY = b.list.get(piece).getY();
           if(b.isPiece(i,j))
           {
-            if(b.list.get(piece).type.equals("King") && b.list.get(b.whichPiece(i,j)).type.equals("Rook")
-            && b.list.get(piece).color.equals(b.list.get(b.whichPiece(i,j))) && this.color.equals(b.list.get(piece).color))
-            {
-              int tempX = this.x;
-              int tempY = this.y;
-              int tempPieceIndex = b.whichPiece(i,j);
-              int rookX = b.list.get(tempPieceIndex).getX();
-              int rookY = b.list.get(tempPieceIndex).getY();
-              if(this.castle(b.list.get(tempPieceIndex),b))
-              {
-                this.x = tempX;
-                this.y = tempY;
-                b.list.get(i).setXandY(rookX,rookY);
-                this.hasMoved = false;
-                b.list.get(i).hasMoved = false;
-                return false;
-              }
-            }
+            // if(b.list.get(piece).type.equals("King") && b.list.get(b.whichPiece(i,j)).type.equals("Rook")
+            // && b.list.get(piece).color.equals(b.list.get(b.whichPiece(i,j))) && this.color.equals(b.list.get(piece).color))
+            // {
+            //   int tempX = this.x;
+            //   int tempY = this.y;
+            //   int tempPieceIndex = b.whichPiece(i,j);
+            //   int rookX = b.list.get(tempPieceIndex).getX();
+            //   int rookY = b.list.get(tempPieceIndex).getY();
+            //   if(this.castle(b.list.get(tempPieceIndex),b))
+            //   {
+            //     this.x = tempX;
+            //     this.y = tempY;
+            //     b.list.get(i).setXandY(rookX,rookY);
+            //     this.hasMoved = false;
+            //     b.list.get(i).hasMoved = false;
+            //     return false;
+            //   }
+            // }
             if(b.list.get(piece).kill(b.list.get(b.whichPiece(i,j)),b))
             {
               if(!this.checkCheck(b,king))
               {
                 // System.out.println("You can kill " + b.lastKilled + " with " + b.list.get(piece));
                 b.list.get(piece).setXandY(newX,newY);
+                b.list.get(piece).hasMoved = tempHasMoved;
+                b.list.get(piece).hasMovedAgain = tempHasMovedAgain;
                 b.lastKilled.isAlive = true;
                 b.lastKilled = null;
                 return false;
@@ -87,6 +91,8 @@ public class King extends Piece
               {
                 // System.out.println("You can move " + b.list.get(piece) + " to " + i + " " + j);
                 b.list.get(piece).setXandY(newX,newY);
+                b.list.get(piece).hasMoved = tempHasMoved;
+                b.list.get(piece).hasMovedAgain = tempHasMovedAgain;
                 return false;
               }
               b.list.get(piece).setXandY(newX,newY);
@@ -94,6 +100,8 @@ public class King extends Piece
           }
         }
       }
+      b.list.get(piece).hasMoved = tempHasMoved;
+      b.list.get(piece).hasMovedAgain = tempHasMovedAgain;
     }
     return true;
   }
@@ -200,9 +208,14 @@ public class King extends Piece
     {
       this.x = x;
       this.y = y;
-      if(this.hasMoved)
+      if(!this.hasMovedAgain && this.hasMoved)
+      {
         this.hasMovedAgain = true;
-      this.hasMoved = true;
+      }
+      if(!this.hasMoved)
+      {
+        this.hasMoved = true;
+      }
       return true;
     }
     return false;
@@ -217,9 +230,14 @@ public class King extends Piece
     {
       this.x = x;
       this.y = y;
-      if(this.hasMoved)
+      if(!this.hasMovedAgain && this.hasMoved)
+      {
         this.hasMovedAgain = true;
-      this.hasMoved = true;
+      }
+      if(!this.hasMoved)
+      {
+        this.hasMoved = true;
+      }
       return true;
     }
     return false;
