@@ -5,6 +5,7 @@ public class Knight extends Piece
     super(x,y,color);
     this.type = "Knight";
     this.moveDistance = 0;
+    this.value = 3;
     if(color.equals("White"))
     {
       this.symbol = Character.toUpperCase(this.type.charAt(1));

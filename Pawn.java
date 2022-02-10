@@ -5,6 +5,7 @@ public class Pawn extends Piece
     super(x,y,color);
     this.type = "Pawn";
     this.moveDistance = 2;
+    this.value = 1;
     if(color.equals("White"))
     {
       this.symbol = Character.toUpperCase(this.type.charAt(0));
@@ -12,6 +13,17 @@ public class Pawn extends Piece
     else
     {
       this.symbol = Character.toLowerCase(this.type.charAt(0));
+    }
+  }
+  protected void calculateValue()
+  {
+    if(this.color.equals("White"))
+    {
+      this.value = this.y;
+    }
+    else
+    {
+      this.value = (7 - this.y) + 1;
     }
   }
   protected boolean moveDiag(int x, int y, Board b)

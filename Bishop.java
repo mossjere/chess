@@ -5,6 +5,7 @@ public class Bishop extends Piece
     super(x,y,color);
     this.type = "Bishop";
     this.moveDistance = 8;
+    this.value = 3;
     if(color.equals("White"))
     {
       this.symbol = Character.toUpperCase(this.type.charAt(0));

@@ -5,6 +5,7 @@ public class Rook extends Piece
     super(x,y,color);
     this.type = "Rook";
     this.moveDistance = 8;
+    this.value = 5;
     if(color.equals("White"))
     {
       this.symbol = Character.toUpperCase(this.type.charAt(0));

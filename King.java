@@ -5,6 +5,7 @@ public class King extends Piece
     super(x,y,color);
     this.moveDistance = 1;
     this.type = "King";
+    this.value = 999999999;
     if(color.equals("White"))
     {
       this.symbol = Character.toUpperCase(this.type.charAt(0));

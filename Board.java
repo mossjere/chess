@@ -139,6 +139,47 @@ public class Board
     return fen;
   }
 
+  public Board clone()
+  {
+    Board a = new Board();
+    for(int i = 0; i < a.list.size(); i++)
+    {
+      if(!a.list.get(i).color.equals(this.list.get(i).color) && this.list.get(i).isAlive)
+      {
+        if(this.list.get(i).type.equals("Queen"))
+        {
+          Queen newQueen = new Queen(this.list.get(i).getX(), this.list.get(i).getY(), this.list.get(i).color);
+          a.list.add(i,newQueen);
+          a.list.remove(i+1);
+        }
+        if(this.list.get(i).type.equals("Rook"))
+        {
+          Rook newRook = new Rook(this.list.get(i).getX(), this.list.get(i).getY(), this.list.get(i).color);
+          a.list.add(i,newRook);
+          a.list.remove(i+1);
+        }
+        if(this.list.get(i).type.equals("Knight"))
+        {
+          Knight newKnight = new Knight(this.list.get(i).getX(), this.list.get(i).getY(), this.list.get(i).color);
+          a.list.add(i,newKnight);
+          a.list.remove(i+1);
+        }
+        if(this.list.get(i).type.equals("Bishop"))
+        {
+          Bishop newBishop = new Bishop(this.list.get(i).getX(), this.list.get(i).getY(), this.list.get(i).color);
+          a.list.add(i,newBishop);
+          a.list.remove(i+1);
+        }
+      }
+      a.list.get(i).setXandY(this.list.get(i).getX(), this.list.get(i).getY());
+      a.list.get(i).isAlive = this.list.get(i).isAlive;
+      a.list.get(i).hasMoved = this.list.get(i).hasMoved;
+      a.list.get(i).hasMovedAgain = this.list.get(i).hasMovedAgain;
+      a.list.get(i).workAround = this.list.get(i).workAround;
+    }
+    return a;
+  }
+
 
 
   public static void main(String[] args)

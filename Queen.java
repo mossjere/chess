@@ -5,6 +5,7 @@ public class Queen extends Piece
     super(x,y,color);
     this.type = "Queen";
     this.moveDistance = 8;
+    this.value = 9;
     if(color.equals("White"))
     {
       this.symbol = Character.toUpperCase(this.type.charAt(0));
