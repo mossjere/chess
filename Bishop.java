@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 public class Bishop extends Piece
 {
   Bishop(int x, int y, String color)
@@ -5,6 +6,7 @@ public class Bishop extends Piece
     super(x,y,color);
     this.type = "Bishop";
     this.moveDistance = 8;
+    this.value = 3;
     if(color.equals("White"))
     {
       this.symbol = Character.toUpperCase(this.type.charAt(0));
@@ -48,5 +50,35 @@ public class Bishop extends Piece
       return true;
     }
     return false;
+  }
+  protected ArrayList getMoves()
+  {
+    ArrayList<Integer> moves = new ArrayList<Integer>();
+    int x = this.getX();
+    int y = this.getY();
+
+    //diagonals with a V shape
+    for(int i = y+1; i < 8; i++)
+    {
+      if(x < 7)
+        moves.add((i)*8+x+1);
+      if(x > 0)
+        moves.add((i)*8+x-1);
+    }
+    //diaginals with in A shape
+    for(int i = y-1; i >= 0; i--)
+    {
+      if(x < 7)
+        moves.add((i)*8+x+1);
+      if(x > 0)
+        moves.add((i)*8+x-1);
+    }
+    // int[] arr = new int[moves.size()];
+    // for(int i = 0; i < moves.size(); i++)
+    // {
+    //   arr[i] = moves.get(i);
+    // }
+    // return arr;
+    return moves;
   }
 }
