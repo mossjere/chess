@@ -18,9 +18,11 @@ public class Chess extends JPanel implements MouseListener
   String display = "";
   char col[] = {'A','B','C','D','E','F','G','H'};
   int pawnling = -1;
+  int turnCount = 0;
   boolean choosePiece = false;
   boolean gameOver = false;
-  boolean singlePlayer = false ;
+  boolean singlePlayer = false;
+  boolean compVComp = false;
   double screenHeight, screenWidth;
   Chess(){addMouseListener(this);}
   public static void main(String[] args)
@@ -70,7 +72,12 @@ public class Chess extends JPanel implements MouseListener
 
   public void ai()
   {
+    if(gameOver)
+      return;
     int startX, startY, bestX, bestY, value;
+    int king = whitesMove ? 0 : 16;
+    if(b.test)
+      king = whitesMove ? 0 : 1;
     startX = -1;
     startY = -1;
     bestX = -1;
@@ -78,6 +85,7 @@ public class Chess extends JPanel implements MouseListener
     value = -1;
     Board a = b.clone();
     String compsColor = whitesMove ? "White" : "Black";
+
     for(int i = 0; i < a.list.size(); i++)
     {
       if(!a.list.get(i).isAlive || !a.list.get(i).color.equals(compsColor))
@@ -92,12 +100,13 @@ public class Chess extends JPanel implements MouseListener
           continue;
         if(a.list.get(i).kill(a.list.get(j),a))
         {
-          if(a.list.get(j).value > value)
+          if((turnCount > 0 || b.test) && a.list.get(j).value > value && !a.list.get(king).checkCheck(a,king))
           {
             startX = tempX;
             startY = tempY;
             bestX = a.list.get(i).getX();
             bestY = a.list.get(i).getY();
+            a.list.get(i).calculateValue();
             value = a.list.get(j).value;
           }
         }
@@ -130,8 +139,15 @@ public class Chess extends JPanel implements MouseListener
     }
     if(value < 0)
     {
-      for(int i = a.list.size()-1; i >= 0; i--)
+      Random gen = new Random();
+      int rand = gen.nextInt(0,a.list.size()-1);
+      // for(int i = a.list.size()-1; i >= 0; i--)
+      for(int i = rand+1; i != rand; i++)
       {
+        if(i >= a.list.size())
+        {
+          i = 0;
+        }
         int tempX = a.list.get(i).getX();
         int tempY = a.list.get(i).getY();
         boolean breaker = false;
@@ -139,13 +155,18 @@ public class Chess extends JPanel implements MouseListener
         {
           continue;
         }
-        for(int x = 0; x < 8; x++)
-        {
-          for(int y = 0; y < 8; y++)
-          {
+        // for(int x = 0; x < 8; x++)
+        // {
+        //   for(int y = 0; y < 8; y++)
+        //   {
+        ArrayList moves = a.list.get(i).getMoves();
+      	for(int m = 0; m < moves.size(); m++)
+      	{
+      		int x = (int)moves.get(m) % 8;
+      		int y = (int)moves.get(m) / 8;
             if(a.isPiece(x,y) || (a.list.get(i).getX() == x && a.list.get(i).getY() == y))
               continue;
-            if(a.list.get(i).move(x,y,a))// && (a.list.get(i).getX() != x || a.list.get(i).getY() != y))
+            if(a.list.get(i).move(x,y,a)  && !a.list.get(king).checkCheck(a,king))// && (a.list.get(i).getX() != x || a.list.get(i).getY() != y))
             {
               breaker = true;
               startX = tempX;
@@ -161,9 +182,9 @@ public class Chess extends JPanel implements MouseListener
               System.gc();
             }
           }
-          if(breaker)
-            break;
-        }
+        //   if(breaker)
+        //     break;
+        // }
         if(breaker)
           break;
       }
@@ -171,13 +192,16 @@ public class Chess extends JPanel implements MouseListener
     if(b.isPiece(startX, startY)){
       if(b.isPiece(bestX, bestY))
       {
+        display = b.list.get(b.whichPiece(startX,startY)) + " takes " + b.list.get(b.whichPiece(bestX, bestY));
         b.list.get(b.whichPiece(startX,startY)).kill(b.list.get(b.whichPiece(bestX,bestY)),b);
       }
       else
       {
+        display = b.list.get(b.whichPiece(startX,startY)).type + " " + col[startX] + (startY+1) + " to " + col[bestX] + (bestY+1);
         b.list.get(b.whichPiece(startX,startY)).move(bestX,bestY,b);
       }
     }
+    turnCount++;
     whitesMove = !whitesMove;
     computersTurn = false;
     repaint();
@@ -245,7 +269,7 @@ public class Chess extends JPanel implements MouseListener
            // }
            //g.fillOval(60+(j * 50),(470-(60+(i*50))),30,30);
            g.setColor(Color.WHITE);
-           String file = b.list.get(k).toString() + ".png";
+           String file = "images/" + b.list.get(k).toString() + ".png";
            image = new ImageIcon(file).getImage();
            //g2d.drawImage(image,60+(j * 50),(470-(60+(i*50))), 30, 30, null);
            g2d.drawImage(image,(swr*60)+(j * (sh/10)),((sh - (shr * 30))-((shr * 60)+(i*(sh/10)))), swr *  30, shr * 30, null);
@@ -257,10 +281,10 @@ public class Chess extends JPanel implements MouseListener
    if(choosePiece)
    {
      String selectedColor = whitesMove ? "Black" : "White";
-     String queenFile = selectedColor + " Queen.png";
-     String bishopFile = selectedColor + " Bishop.png";
-     String rookFile = selectedColor + " Rook.png";
-     String knightFile = selectedColor + " Knight.png";
+     String queenFile = "images/" + selectedColor + " Queen.png";
+     String bishopFile = "images/" + selectedColor + " Bishop.png";
+     String rookFile = "images/" + selectedColor + " Rook.png";
+     String knightFile = "images/" + selectedColor + " Knight.png";
      Image queenImage = new ImageIcon(queenFile).getImage();
      Image bishopImage = new ImageIcon(bishopFile).getImage();
      Image rookImage = new ImageIcon(rookFile).getImage();
@@ -288,6 +312,11 @@ public class Chess extends JPanel implements MouseListener
   public void mouseReleased(MouseEvent e){}
   public void mousePressed(MouseEvent e)
   {
+    if(compVComp)
+    {
+      computersTurn = true;
+      return;
+    }
     boolean tempTurn = whitesMove;
     playerTurn(e);
     if(tempTurn != whitesMove)
@@ -307,6 +336,8 @@ public class Chess extends JPanel implements MouseListener
         piecesAlive++;
     }
     int king = whitesMove ? 0 : 16;
+    if(b.test)
+      king = whitesMove ? 0 : 1;
     if(!b.list.get(king).checkCheck(b,king) && b.list.get(king).checkMate(b,king))
     {
       display = "Stalemate!";
@@ -329,7 +360,8 @@ public class Chess extends JPanel implements MouseListener
       int selectedX = e.getX();
       int selectedY = e.getY();
       selectedX = (selectedX-((int)screenWidth / 10))/((int)screenWidth / 10);
-      selectedY = 7-((selectedY-((int)screenHeight/10))/((int)screenHeight / 10));
+      selectedY = 7-((selectedY-(((int)screenHeight-40)/10))/(((int)screenHeight-40) / 10));
+
       if(selectedX == 8 && selectedY > 1 && selectedY < 6)
       {
         b.list.get(pawnling).upgrade(b, pawnling, selectedY);
@@ -343,8 +375,9 @@ public class Chess extends JPanel implements MouseListener
     {
       //currX = e.getX();
       //currY = e.getY();
+
       currX = (e.getX()-((int)screenWidth/10))/((int)screenWidth/10);
-      currY = 7-((e.getY()-((int)screenHeight/10))/((int)screenHeight/10));
+      currY = 7-((e.getY()-(((int)screenHeight-(((int)screenHeight / 520) * 20))/10))/(((int)screenHeight-(((int)screenHeight / 520) * 20))/10));
       //currX = (currX-50)/50;
       //currY = 7-((currY-50)/50);
       if(b.isPiece(currX,currY) &&
@@ -356,7 +389,7 @@ public class Chess extends JPanel implements MouseListener
     else
     {
       int newX = (e.getX()-((int)screenWidth/10))/((int)screenWidth/10);
-      int newY = 7-((e.getY()-((int)screenHeight/10))/((int)screenHeight/10));
+      int newY = 7-((e.getY()-(((int)screenHeight-(((int)screenHeight / 520) * 20))/10))/(((int)screenHeight-(((int)screenHeight / 520) * 20))/10));
       if(currX >= 0 && currX < 8 && currY >= 0 && currY < 8)
       {
         int pieceIndex = b.whichPiece(currX,currY);
@@ -541,6 +574,8 @@ public class Chess extends JPanel implements MouseListener
         // }
       }
       king = whitesMove ? 0 : 16;
+      if(b.test)
+        king = whitesMove ? 0 : 8;
       if(b.list.get(king).checkCheck(b,king))
       {
         if(b.list.get(king).checkMate(b,king))

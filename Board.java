@@ -8,9 +8,11 @@ public class Board
   ArrayList<Piece> list = new ArrayList<Piece>();
   Piece lastKilled;
   Piece lastMoved;
+  boolean test;
   Board()
   {
     lastKilled = null;
+    test = false;
     King whiteKing = new King(4,0,"White");
     list.add(whiteKing);
     Queen whiteQueen = new Queen(3,0,"White");
@@ -93,6 +95,98 @@ public class Board
       grid[i][j] = true;
     }
   }
+
+  //test board
+  Board(int zzzz)
+  {
+    lastKilled = null;
+    test = true;
+    King whiteKing = new King(4,0,"White");
+    list.add(whiteKing);
+    King blackKing = new King(4,7,"Black");
+    list.add(blackKing);
+
+
+    Queen whiteQueen = new Queen(3,0,"White");
+    list.add(whiteQueen);
+    Bishop whiteQueenBishop = new Bishop(2,0,"White");
+    list.add(whiteQueenBishop);
+    Bishop whiteKingBishop = new Bishop(5,0,"White");
+    list.add(whiteKingBishop);
+    Knight whiteQueenKnight = new Knight(1,0,"White");
+    list.add(whiteQueenKnight);
+    Knight whiteKingKnight = new Knight(6,0,"White");
+    list.add(whiteKingKnight);
+    Rook whiteQueenRook = new Rook(0,0,"White");
+    list.add(whiteQueenRook);
+    Rook whiteKingRook = new Rook(7,0,"White");
+    list.add(whiteKingRook);
+
+
+    Queen blackQueen = new Queen(3,7,"Black");
+    list.add(blackQueen);
+    Bishop blackQueenBishop = new Bishop(2,7,"Black");
+    list.add(blackQueenBishop);
+    Bishop blackKingBishop = new Bishop(5,7,"Black");
+    list.add(blackKingBishop);
+    Knight blackQueenKnight = new Knight(1,7,"Black");
+    list.add(blackQueenKnight);
+    Knight blackKingKnight = new Knight(6,7,"Black");
+    list.add(blackKingKnight);
+    Rook blackQueenRook = new Rook(0,7,"Black");
+    list.add(blackQueenRook);
+    Rook blackKingRook = new Rook(7,7,"Black");
+    list.add(blackKingRook);
+
+    Pawn whitePawn1 = new Pawn(0,1,"White");
+    list.add(whitePawn1);
+    // Pawn whitePawn2 = new Pawn(1,1,"White");
+    // list.add(whitePawn2);
+    // Pawn whitePawn3 = new Pawn(2,1,"White");
+    // list.add(whitePawn3);
+    Pawn whitePawn4 = new Pawn(3,1,"White");
+    list.add(whitePawn4);
+    // Pawn whitePawn5 = new Pawn(4,1,"White");
+    // list.add(whitePawn5);
+    // Pawn whitePawn6 = new Pawn(5,1,"White");
+    // list.add(whitePawn6);
+    // Pawn whitePawn7 = new Pawn(6,1,"White");
+    // list.add(whitePawn7);
+    Pawn whitePawn8 = new Pawn(7,1,"White");
+    list.add(whitePawn8);
+    //
+    Pawn blackPawn1 = new Pawn(0,6,"Black");
+    list.add(blackPawn1);
+    // Pawn blackPawn2 = new Pawn(1,6,"Black");
+    // list.add(blackPawn2);
+    // Pawn blackPawn3 = new Pawn(2,6,"Black");
+    // list.add(blackPawn3);
+    Pawn blackPawn4 = new Pawn(3,6,"Black");
+    list.add(blackPawn4);
+    // Pawn blackPawn5 = new Pawn(4,6,"Black");
+    // list.add(blackPawn5);
+    // Pawn blackPawn6 = new Pawn(5,6,"Black");
+    // list.add(blackPawn6);
+    // Pawn blackPawn7 = new Pawn(6,6,"Black");
+    // list.add(blackPawn7);
+    Pawn blackPawn8 = new Pawn(7,6,"Black");
+    list.add(blackPawn8);
+
+    for(int i = 0; i < 8; i++)
+    {
+      for(int j = 0; j < 8; j++)
+      {
+        grid[i][j] = false;
+      }
+    }
+    for(int k = 0; k < list.size(); k++)
+    {
+      int i = list.get(k).getX();
+      int j = list.get(k).getY();
+      grid[i][j] = true;
+    }
+  }
+
   public boolean isPiece(int x, int y)
   {
     for(int k = 0; k < list.size(); k++)
@@ -142,6 +236,9 @@ public class Board
   public Board clone()
   {
     Board a = new Board();
+    if(this.test)
+      a = new Board(1);
+    a.test = this.test;
     for(int i = 0; i < a.list.size(); i++)
     {
       if(!a.list.get(i).color.equals(this.list.get(i).color) && this.list.get(i).isAlive)

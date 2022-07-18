@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 public class Rook extends Piece
 {
   Rook(int x, int y, String color)
@@ -51,5 +52,39 @@ public class Rook extends Piece
       return true;
     }
     return false;
+  }
+  protected ArrayList getMoves()
+  {
+    ArrayList<Integer> moves = new ArrayList<Integer>();
+    int x = this.getX();
+    int y = this.getY();
+
+    //verticals going up
+    for(int i = y+1; i < 8; i++)
+    {
+      moves.add((i*8)+x);
+    }
+    //verticals going down
+    for(int i = y-1; i >= 0; i--)
+    {
+      moves.add((i*8)+x);
+    }
+    //positive x
+    for(int i = x+1; i < 8; i++)
+    {
+      moves.add(y*8+i);
+    }
+    //negative x
+    for(int i = x-1; i >= 0; i--)
+    {
+      moves.add(y*8+i);
+    }
+    // int[] arr = new int[moves.size()];
+    // for(int i = 0; i < moves.size(); i++)
+    // {
+    //   arr[i] = moves.get(i);
+    // }
+    // return arr;
+    return moves;
   }
 }

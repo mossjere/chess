@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 public class Pawn extends Piece
 {
   Pawn(int x, int y, String color)
@@ -128,5 +129,45 @@ public class Pawn extends Piece
     }
     pawn++;
     b.list.remove(pawn);
+  }
+
+  protected ArrayList getMoves()
+  {
+    ArrayList<Integer> moves = new ArrayList<Integer>();
+    int x = this.getX();
+    int y = this.getY();
+    if(this.color.equals("White"))
+    {
+      if(y == 1)
+        moves.add((y+2)*8 + x);
+      if(y < 7)
+      {
+        moves.add((y+1)*8 + x);
+        if(x > 0)
+          moves.add((y+1)*8 + x-1);
+        if(x < 7)
+          moves.add((y+1)*8 + x+1);
+      }
+    }
+    else
+    {
+      if(y == 6)
+        moves.add((y-2)*8 + x);
+      if(y > 0)
+      {
+        moves.add((y-1)*8 + x);
+        if(x > 0)
+          moves.add((y-1)*8 + x-1);
+        if(x < 7)
+          moves.add((y-1)*8 + x+1);
+      }
+    }
+    // int[] arr = new int[moves.size()];
+    // for(int i = 0; i < moves.size(); i++)
+    // {
+    //   arr[i] = moves.get(i);
+    // }
+    // return arr;
+    return moves;
   }
 }

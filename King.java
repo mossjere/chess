@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 public class King extends Piece
 {
   King(int x, int y, String color)
@@ -268,6 +269,42 @@ public class King extends Piece
       return true;
     }
     return false;
+  }
+
+  protected ArrayList getMoves()
+  {
+    ArrayList<Integer> moves = new ArrayList<Integer>();
+    int x = this.getX();
+    int y = this.getY();
+    if(x < 7)
+    {
+      if(y < 7)
+        moves.add((y+1)*8 + x+1);
+      if(y > 0)
+        moves.add((y-1)*8 + x+1);
+      moves.add(y*8+x+1);
+    }
+    if(x > 0)
+    {
+      if(y < 7)
+        moves.add((y+1)*8+x-1);
+      if(y > 0)
+        moves.add((y-1)*8+x-1);
+      moves.add(y*8+x-1);
+    }
+    if(y > 0)
+      moves.add((y-1)*8+x);
+    if(y < 7)
+    {
+      moves.add((y+1)*8+x);
+    }
+    // int[] arr = new int[moves.size()];
+    // for(int i = 0; i < moves.size(); i++)
+    // {
+    //   arr[i] = moves.get(i);
+    // }
+    // return arr;
+    return moves;
   }
 
 }

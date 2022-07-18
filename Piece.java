@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 public abstract class Piece
 {
   Piece(int x, int y, String color)
@@ -25,6 +26,8 @@ public abstract class Piece
   protected void upgrade(Board b, int pawn, int piece){}
   protected int getValue(){calculateValue(); return value;}
   protected void calculateValue(){}
+  // protected int[] getMoves(){int[] arr = {0,1};return arr;}
+  protected ArrayList getMoves(){return new ArrayList<Integer>();}
   //pawn value increments as it approuches promotion Bishop = 3 pawns
   //knight = 3 pawns rook = 5 pawns queen = 9 pawns
 
