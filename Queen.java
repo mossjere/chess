@@ -89,7 +89,7 @@ public class Queen extends Piece
     return false;
   }
 
-  protected ArrayList getMoves()
+  protected ArrayList<Integer> getMoves()
   {
     ArrayList<Integer> moves = new ArrayList<Integer>();
     int x = this.getX();

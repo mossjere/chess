@@ -4,9 +4,6 @@ import java.awt.*;
 import java.awt.Graphics;
 import java.awt.event.*;
 import java.awt.Color;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.lang.*;
 public class Chess extends JPanel implements MouseListener
 {
 
@@ -32,7 +29,7 @@ public class Chess extends JPanel implements MouseListener
     frame.setPreferredSize(new Dimension(1000,1040));
     //frame.setPreferredSize(new Dimension(500,520));
     frame.validate();
-    frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     //frame.setLocationRelativeTo(null);
     frame.setVisible(true);
     frame.pack();
@@ -140,7 +137,7 @@ public class Chess extends JPanel implements MouseListener
     if(value < 0)
     {
       Random gen = new Random();
-      int rand = gen.nextInt(0,a.list.size()-1);
+      int rand = gen.nextInt(a.list.size()-1);
       // for(int i = a.list.size()-1; i >= 0; i--)
       for(int i = rand+1; i != rand; i++)
       {
@@ -159,7 +156,7 @@ public class Chess extends JPanel implements MouseListener
         // {
         //   for(int y = 0; y < 8; y++)
         //   {
-        ArrayList moves = a.list.get(i).getMoves();
+        ArrayList<Integer> moves = a.list.get(i).getMoves();
       	for(int m = 0; m < moves.size(); m++)
       	{
       		int x = (int)moves.get(m) % 8;

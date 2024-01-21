@@ -131,7 +131,7 @@ public class Pawn extends Piece
     b.list.remove(pawn);
   }
 
-  protected ArrayList getMoves()
+  protected ArrayList<Integer> getMoves()
   {
     ArrayList<Integer> moves = new ArrayList<Integer>();
     int x = this.getX();

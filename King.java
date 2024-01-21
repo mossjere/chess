@@ -6,7 +6,7 @@ public class King extends Piece
     super(x,y,color);
     this.moveDistance = 1;
     this.type = "King";
-    this.value = 999999999;
+    this.value = Integer.MAX_VALUE;
     if(color.equals("White"))
     {
       this.symbol = Character.toUpperCase(this.type.charAt(0));
@@ -271,7 +271,7 @@ public class King extends Piece
     return false;
   }
 
-  protected ArrayList getMoves()
+  protected ArrayList<Integer> getMoves()
   {
     ArrayList<Integer> moves = new ArrayList<Integer>();
     int x = this.getX();
