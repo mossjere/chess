@@ -92,11 +92,6 @@ public class Pawn extends Piece
       if(this.y == y && (this.x-1 == x || this.x+1 == x) && (y == 3 || y == 4)
         && b.list.get(b.whichPiece(x,y)).type.equals("Pawn") && this.workAround && b.lastMoved == b.list.get(b.whichPiece(x,y)))
       {
-        // if(y == 3)
-        //   this.y = 2;
-        // else
-        //   this.y = 5;
-        // this.x = x;
         return true;
       }
     }
@@ -162,12 +157,6 @@ public class Pawn extends Piece
           moves.add((y-1)*8 + x+1);
       }
     }
-    // int[] arr = new int[moves.size()];
-    // for(int i = 0; i < moves.size(); i++)
-    // {
-    //   arr[i] = moves.get(i);
-    // }
-    // return arr;
     return moves;
   }
 }

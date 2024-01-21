@@ -138,35 +138,14 @@ public class Board
 
     Pawn whitePawn1 = new Pawn(0,1,"White");
     list.add(whitePawn1);
-    // Pawn whitePawn2 = new Pawn(1,1,"White");
-    // list.add(whitePawn2);
-    // Pawn whitePawn3 = new Pawn(2,1,"White");
-    // list.add(whitePawn3);
     Pawn whitePawn4 = new Pawn(3,1,"White");
     list.add(whitePawn4);
-    // Pawn whitePawn5 = new Pawn(4,1,"White");
-    // list.add(whitePawn5);
-    // Pawn whitePawn6 = new Pawn(5,1,"White");
-    // list.add(whitePawn6);
-    // Pawn whitePawn7 = new Pawn(6,1,"White");
-    // list.add(whitePawn7);
     Pawn whitePawn8 = new Pawn(7,1,"White");
     list.add(whitePawn8);
-    //
     Pawn blackPawn1 = new Pawn(0,6,"Black");
     list.add(blackPawn1);
-    // Pawn blackPawn2 = new Pawn(1,6,"Black");
-    // list.add(blackPawn2);
-    // Pawn blackPawn3 = new Pawn(2,6,"Black");
-    // list.add(blackPawn3);
     Pawn blackPawn4 = new Pawn(3,6,"Black");
     list.add(blackPawn4);
-    // Pawn blackPawn5 = new Pawn(4,6,"Black");
-    // list.add(blackPawn5);
-    // Pawn blackPawn6 = new Pawn(5,6,"Black");
-    // list.add(blackPawn6);
-    // Pawn blackPawn7 = new Pawn(6,6,"Black");
-    // list.add(blackPawn7);
     Pawn blackPawn8 = new Pawn(7,6,"Black");
     list.add(blackPawn8);
 

@@ -50,29 +50,10 @@ public class King extends Piece
           int newY = b.list.get(piece).getY();
           if(b.isPiece(i,j))
           {
-            // if(b.list.get(piece).type.equals("King") && b.list.get(b.whichPiece(i,j)).type.equals("Rook")
-            // && b.list.get(piece).color.equals(b.list.get(b.whichPiece(i,j))) && this.color.equals(b.list.get(piece).color))
-            // {
-            //   int tempX = this.x;
-            //   int tempY = this.y;
-            //   int tempPieceIndex = b.whichPiece(i,j);
-            //   int rookX = b.list.get(tempPieceIndex).getX();
-            //   int rookY = b.list.get(tempPieceIndex).getY();
-            //   if(this.castle(b.list.get(tempPieceIndex),b))
-            //   {
-            //     this.x = tempX;
-            //     this.y = tempY;
-            //     b.list.get(i).setXandY(rookX,rookY);
-            //     this.hasMoved = false;
-            //     b.list.get(i).hasMoved = false;
-            //     return false;
-            //   }
-            // }
             if(b.list.get(piece).kill(b.list.get(b.whichPiece(i,j)),b))
             {
               if(!this.checkCheck(b,king))
               {
-                // System.out.println("You can kill " + b.lastKilled + " with " + b.list.get(piece));
                 b.list.get(piece).setXandY(newX,newY);
                 b.list.get(piece).hasMoved = tempHasMoved;
                 b.list.get(piece).hasMovedAgain = tempHasMovedAgain;
@@ -91,7 +72,6 @@ public class King extends Piece
             {
               if(!this.checkCheck(b,king))
               {
-                // System.out.println("You can move " + b.list.get(piece) + " to " + i + " " + j);
                 b.list.get(piece).setXandY(newX,newY);
                 b.list.get(piece).hasMoved = tempHasMoved;
                 b.list.get(piece).hasMovedAgain = tempHasMovedAgain;
@@ -108,33 +88,6 @@ public class King extends Piece
     return true;
   }
 
-  // protected boolean move(int x, int y, Board b)
-  // {
-  //   if(x == this.x && y == this.y)
-  //   {
-  //     System.out.println("the piece didn't move");
-  //     return false;
-  //   }
-  //   if(this.checkBounds(x,y,b))
-  //     {
-  //       this.x = x;
-  //       this.y = y;
-  //       if(this.hasMoved)
-  //       {
-  //         this.hasMovedAgain = true;
-  //       }
-  //       this.hasMoved = true;
-  //     }
-  // }
-  // protected boolean checkBounds(int x, int y, Board b)
-  // {
-  //   if((x+this.moveDistance == this.x || x == this.x || x-this.moveDistance == this.x)&&
-  //   (y+this.moveDistance == this.y || y == this.y || y-this.moveDistance == this.y))
-  //   {
-  //     return true;
-  //   }
-  //   return false;
-  // }
   protected boolean castle(Piece r, Board b)
   {
     //check if left rook
@@ -163,7 +116,6 @@ public class King extends Piece
           return false;
         }
       }
-      //this.x-=2;
       r.x+=3;
       r.hasMoved = true;
       this.hasMoved = true;
@@ -298,12 +250,6 @@ public class King extends Piece
     {
       moves.add((y+1)*8+x);
     }
-    // int[] arr = new int[moves.size()];
-    // for(int i = 0; i < moves.size(); i++)
-    // {
-    //   arr[i] = moves.get(i);
-    // }
-    // return arr;
     return moves;
   }
 

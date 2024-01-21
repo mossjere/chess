@@ -30,7 +30,6 @@ public class Chess extends JPanel implements MouseListener
     //frame.setPreferredSize(new Dimension(500,520));
     frame.validate();
     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    //frame.setLocationRelativeTo(null);
     frame.setVisible(true);
     frame.pack();
     frame.setTitle("Chess");
@@ -38,15 +37,12 @@ public class Chess extends JPanel implements MouseListener
     while(true)
     {
       Dimension screenSize = frame.getBounds().getSize();
-      //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
       chess.screenHeight = screenSize.getHeight();
       chess.screenWidth = screenSize.getWidth();
-      //chess.computersTurn = chess.computersTurn;
       if(chess.singlePlayer)
       {
         if(chess.computersTurn)
         {
-          // System.out.println("Here");
           chess.ai();
         }
         try
@@ -64,7 +60,6 @@ public class Chess extends JPanel implements MouseListener
   public void printFen()
   {
     return;
-    //System.out.println(b.fen());
   }
 
   public void ai()
@@ -110,35 +105,11 @@ public class Chess extends JPanel implements MouseListener
         a = b.clone();
         System.gc();
       }
-      // for(int x = 0; x < 8; x++)
-      // {
-      //   for(int y = 0; y < 8; y++)
-      //   {
-      //     if(a.isPiece(x,y) && !a.list.get(a.whichPiece(x,y)).color.equals(compsColor))
-      //     {
-      //       int tempValue = a.list.get(a.whichPiece(x,y)).value;
-      //       if(a.list.get(i).kill(a.list.get(a.whichPiece(x,y)),a))
-      //       {
-      //         if(tempValue > value)
-      //         {
-      //           value = tempValue;
-      //           startX = tempX;
-      //           startY = tempY;
-      //           bestX = a.list.get(i).getX();
-      //           bestY = a.list.get(i).getY();
-      //         }
-      //       }
-      //     }
-      //     a = b.clone();
-      //     System.gc();
-      //   }
-      // }
     }
     if(value < 0)
     {
       Random gen = new Random();
       int rand = gen.nextInt(a.list.size()-1);
-      // for(int i = a.list.size()-1; i >= 0; i--)
       for(int i = rand+1; i != rand; i++)
       {
         if(i >= a.list.size())
@@ -152,10 +123,6 @@ public class Chess extends JPanel implements MouseListener
         {
           continue;
         }
-        // for(int x = 0; x < 8; x++)
-        // {
-        //   for(int y = 0; y < 8; y++)
-        //   {
         ArrayList<Integer> moves = a.list.get(i).getMoves();
       	for(int m = 0; m < moves.size(); m++)
       	{
@@ -163,7 +130,7 @@ public class Chess extends JPanel implements MouseListener
       		int y = (int)moves.get(m) / 8;
             if(a.isPiece(x,y) || (a.list.get(i).getX() == x && a.list.get(i).getY() == y))
               continue;
-            if(a.list.get(i).move(x,y,a)  && !a.list.get(king).checkCheck(a,king))// && (a.list.get(i).getX() != x || a.list.get(i).getY() != y))
+            if(a.list.get(i).move(x,y,a)  && !a.list.get(king).checkCheck(a,king))
             {
               breaker = true;
               startX = tempX;
@@ -171,7 +138,6 @@ public class Chess extends JPanel implements MouseListener
               bestX = a.list.get(i).getX();
               bestY = a.list.get(i).getY();
               value = 0;
-              // System.out.println(a.list.get(i) + " to " + col[x] + y);
             }
             else
             {
@@ -179,9 +145,6 @@ public class Chess extends JPanel implements MouseListener
               System.gc();
             }
           }
-        //   if(breaker)
-        //     break;
-        // }
         if(breaker)
           break;
       }
@@ -222,7 +185,6 @@ public class Chess extends JPanel implements MouseListener
    int add = sw / 10;//50;
    int x = sw / 10;//50;
    int y = sh / 10;//50;
-   //int y2 = (sh / 500) * 65;
    boolean filled = false;
    while(times < 64)
    {
@@ -245,30 +207,17 @@ public class Chess extends JPanel implements MouseListener
      }
    }
 
-
-   //g.setColor(Color.BLACK);
    for(int i = 7; i >= 0; i--)
    {
      for(int j = 0; j < 8; j++)
      {
-       boolean taken = false;
        for(int k = 0; k < b.list.size(); k++)
        {
          if(b.list.get(k).getX() == j && b.list.get(k).getY() == i && b.list.get(k).isAlive)
          {
-           // if(b.list.get(k).color.equals("White"))
-           // {
-           //   g.setColor(new Color(153,102,0));
-           // }
-           // else
-           // {
-           //   g.setColor(Color.BLACK);
-           // }
-           //g.fillOval(60+(j * 50),(470-(60+(i*50))),30,30);
            g.setColor(Color.WHITE);
            String file = "images/" + b.list.get(k).toString() + ".png";
            image = new ImageIcon(file).getImage();
-           //g2d.drawImage(image,60+(j * 50),(470-(60+(i*50))), 30, 30, null);
            g2d.drawImage(image,(swr*60)+(j * (sh/10)),((sh - (shr * 30))-((shr * 60)+(i*(sh/10)))), swr *  30, shr * 30, null);
          }
        }
@@ -318,7 +267,6 @@ public class Chess extends JPanel implements MouseListener
     playerTurn(e);
     if(tempTurn != whitesMove)
     {
-      // System.out.println("Here2");
       computersTurn = true;
     }
   }
@@ -370,13 +318,8 @@ public class Chess extends JPanel implements MouseListener
     //If it is a click where no piece is already selected select piece at x, y
     if(!pieceSelected)
     {
-      //currX = e.getX();
-      //currY = e.getY();
-
       currX = (e.getX()-((int)screenWidth/10))/((int)screenWidth/10);
       currY = 7-((e.getY()-(((int)screenHeight-(((int)screenHeight / 520) * 20))/10))/(((int)screenHeight-(((int)screenHeight / 520) * 20))/10));
-      //currX = (currX-50)/50;
-      //currY = 7-((currY-50)/50);
       if(b.isPiece(currX,currY) &&
       ((b.list.get(b.whichPiece(currX,currY)).color.equals("White") && whitesMove) ||
       (b.list.get(b.whichPiece(currX,currY)).color.equals("Black") && !whitesMove)))
@@ -425,7 +368,6 @@ public class Chess extends JPanel implements MouseListener
               {
                 whitesMove = !whitesMove;
                 turnComplete = true;
-                //computersTurn = true;
                 pieceSelected = false;
                 if(b.list.get(king).checkCheck(b,king))
                 {
@@ -466,15 +408,8 @@ public class Chess extends JPanel implements MouseListener
               repaint();
               return;
             }
-            //String tempDisplay = display;
             display = b.list.get(pieceIndex) + " takes " + b.list.get(b.whichPiece(newX, newY));
             turnComplete = b.list.get(pieceIndex).kill(b.list.get(b.whichPiece(newX,newY)),b);
-            //computersTurn = turnComplete;
-            // if(b.list.get(pieceIndex).type.equals("Pawn") && ((whitesMove && b.list.get(pieceIndex).getY() == 7) || !whitesMove && b.list.get(pieceIndex).getY() == 0))
-            // {
-            //   b.list.get(pieceIndex).queenMe(b,pieceIndex);
-            //   repaint();
-            // }
             if(!turnComplete)
             {
               display = "You cannot move the " + b.list.get(pieceIndex) + " there";
@@ -487,15 +422,12 @@ public class Chess extends JPanel implements MouseListener
                 display = "Select your piece";
                 choosePiece = true;
                 pawnling = pieceIndex;
-                // b.list.get(pieceIndex).queenMe(b,pieceIndex);
                 repaint();
               }
               whitesMove = !whitesMove;
-              //computersTurn = !computersTurn;
               if(b.list.get(king).checkCheck(b,king))
               {
                 whitesMove = !whitesMove;
-                //computersTurn = !computersTurn
                 b.list.get(b.whichPiece(newX,newY)).setXandY(currX,currY);
                 b.list.get(pieceIndex).hasMoved = tempMoved;
                 b.list.get(pieceIndex).hasMovedAgain = tempMovedAgain;
@@ -520,7 +452,6 @@ public class Chess extends JPanel implements MouseListener
           else
           {
             turnComplete = b.list.get(pieceIndex).move(newX,newY,b);
-            //computersTurn = turnComplete;
             if(!turnComplete)
               display = "You cannot move the " + b.list.get(pieceIndex) + " there";
             else
@@ -531,18 +462,15 @@ public class Chess extends JPanel implements MouseListener
                 display = "Select your piece";
                 choosePiece = true;
                 pawnling = pieceIndex;
-                // b.list.get(pieceIndex).queenMe(b,pieceIndex);
                 repaint();
               }
               display = b.list.get(pieceIndex).type + " " + col[currX] + (currY+1) + " to " + col[newX] + (newY+1);
               if(choosePiece)
                 display = "Select your piece";
               whitesMove = !whitesMove;
-              //computersTurn = !computersTurn;
               if(b.list.get(king).checkCheck(b,king))
               {
                 whitesMove = !whitesMove;
-                //computersTurn = !computersTurn;
                 b.list.get(b.whichPiece(newX,newY)).setXandY(currX,currY);
                 b.list.get(pieceIndex).hasMoved = tempMoved;
                 b.list.get(pieceIndex).hasMovedAgain = tempMovedAgain;
@@ -564,11 +492,6 @@ public class Chess extends JPanel implements MouseListener
         {
           display = "That is not your piece";
         }
-        // if(b.list.get(pieceIndex).type.equals("Pawn") && ((whitesMove && b.list.get(pieceIndex).getY() == 7) || !whitesMove && b.list.get(pieceIndex).getY() == 0))
-        // {
-        //   b.list.get(pieceIndex).queenMe(b,pieceIndex);
-        //   repaint();
-        // }
       }
       king = whitesMove ? 0 : 16;
       if(b.test)
@@ -588,8 +511,6 @@ public class Chess extends JPanel implements MouseListener
       }
       if(choosePiece)
         display = "Select your piece";
-      // System.out.println(display);
-      //pieceSelected = !pieceSelected;
       pieceSelected = false;
     }
     repaint();

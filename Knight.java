@@ -97,12 +97,6 @@ public class Knight extends Piece
       if(x < 6)
         moves.add((y-1)*8+x+2);
     }
-    // int[] arr = new int[moves.size()];
-    // for(int i = 0; i < moves.size(); i++)
-    // {
-    //   arr[i] = moves.get(i);
-    // }
-    // return arr;
     return moves;
   }
 

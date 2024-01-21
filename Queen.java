@@ -94,42 +94,6 @@ public class Queen extends Piece
     ArrayList<Integer> moves = new ArrayList<Integer>();
     int x = this.getX();
     int y = this.getY();
-
-    //diagonals with a V shape and verticals going up
-    // for(int i = y+1; i < 8; i++)
-    // {
-    //   if(x < 7)
-    //     moves.add((i*8)+(x+1));
-    //   if(x > 0)
-    //     moves.add((i*8)+(x-1));
-    //   // moves.add((i*8)+x);
-    // }
-    // for(int i = y+1; i != y; i++)
-    // {
-    //   if(i > 7)
-    //     i = 0;
-    //   moves.add((i*8)+x);
-    // }
-    // //diaginals with in A shape and verticals going down
-    // for(int i = y-1; i >= 0; i--)
-    // {
-    //   if(x < 7)
-    //     moves.add((i*8)+(x+1));
-    //   if(x > 0)
-    //     moves.add((i*8)+(x-1));
-    //   // moves.add((i*8)+x);
-    // }
-    // //positive x
-    // for(int i = x+1; i < 8; i++)
-    // {
-    //   moves.add(y*8+i);
-    // }
-    // //negative x
-    // for(int i = x-1; i >= 0; i--)
-    // {
-    //   moves.add(y*8+i);
-    // }
-
     for(int i = 0; i < 8; i++)
     {
       if(y+i < 8)
@@ -152,10 +116,6 @@ public class Queen extends Piece
         moves.add(y*8 + (x + i));
       if(x-i >= 0)
         moves.add(y*8 + (x - i));
-      // if(y+i < 8)
-      //   moves.add((y+i)*8 + x);
-      // if(y-i >= 0)
-      //   moves.add((y-i)*8 + x);
     }
     return moves;
   }

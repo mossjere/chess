@@ -79,12 +79,6 @@ public class Rook extends Piece
     {
       moves.add(y*8+i);
     }
-    // int[] arr = new int[moves.size()];
-    // for(int i = 0; i < moves.size(); i++)
-    // {
-    //   arr[i] = moves.get(i);
-    // }
-    // return arr;
     return moves;
   }
 }

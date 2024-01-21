@@ -51,7 +51,7 @@ public class Bishop extends Piece
     }
     return false;
   }
-  protected ArrayList getMoves()
+  protected ArrayList<Integer> getMoves()
   {
     ArrayList<Integer> moves = new ArrayList<Integer>();
     int x = this.getX();
@@ -73,12 +73,6 @@ public class Bishop extends Piece
       if(x > 0)
         moves.add((i)*8+x-1);
     }
-    // int[] arr = new int[moves.size()];
-    // for(int i = 0; i < moves.size(); i++)
-    // {
-    //   arr[i] = moves.get(i);
-    // }
-    // return arr;
     return moves;
   }
 }

@@ -26,7 +26,6 @@ public abstract class Piece
   protected void upgrade(Board b, int pawn, int piece){}
   protected int getValue(){calculateValue(); return value;}
   protected void calculateValue(){}
-  // protected int[] getMoves(){int[] arr = {0,1};return arr;}
   protected ArrayList<Integer> getMoves(){return new ArrayList<Integer>();}
   //pawn value increments as it approuches promotion Bishop = 3 pawns
   //knight = 3 pawns rook = 5 pawns queen = 9 pawns
@@ -163,5 +162,4 @@ public abstract class Piece
   protected boolean hasMovedAgain;
   protected boolean workAround;
   protected int value;
-  //protected abstract boolean checkBounds(int x, int y){return false;}
 }
